@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class Manager extends AppCompatActivity {
+public class ManagerActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 

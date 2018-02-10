@@ -13,9 +13,7 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-import java.util.Scanner;
-
-public class Home extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class HomeActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView zXingScannerView;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
@@ -31,38 +29,36 @@ public class Home extends AppCompatActivity implements ZXingScannerView.ResultHa
         btReserva = findViewById(R.id.button_reservar);
 
 
-        /**Accion boton 2*/
+        /**Accion button_carta*/
 
         btCarta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Esto debería FUNCIONARR.", Toast.LENGTH_LONG).show();
-                Intent myIntent = new Intent(Home.this, Manager.class);
+                Intent myIntent = new Intent(HomeActivity.this, ManagerActivity.class);
                 startActivity(myIntent);
             }
         });
 
-        /**Accion boton 2
+        /**Accion button_reservar*/
 
         btReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Esto llama a ScannerQR.", Toast.LENGTH_LONG).show();
-                Intent scanner = new Intent(HomeActivity.this, Scanner.class);
-                startActivity(scanner);
+                Toast.makeText(getApplicationContext(), "LLAMAR AL RESTO.", Toast.LENGTH_LONG).show();
             }
-        });*/
+        });
     }
     /**Funcion Scanner*/
 
     public void scan(View view) {
         // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(Home.this,
+        if (ContextCompat.checkSelfPermission(HomeActivity.this,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(Home.this,
+            if (ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,
                     Manifest.permission.CAMERA)) {
 
                 // Show an expanation to the user *asynchronously* -- don't block
@@ -73,7 +69,7 @@ public class Home extends AppCompatActivity implements ZXingScannerView.ResultHa
 
                 // No explanation needed, we can request the permission.
 
-                ActivityCompat.requestPermissions(Home.this,
+                ActivityCompat.requestPermissions(HomeActivity.this,
                         new String[]{Manifest.permission.CAMERA},
                         MY_PERMISSIONS_REQUEST_CAMERA);
 
@@ -84,10 +80,10 @@ public class Home extends AppCompatActivity implements ZXingScannerView.ResultHa
         }
         zXingScannerView = new ZXingScannerView(getApplicationContext());
         setContentView(zXingScannerView);
-        zXingScannerView.setResultHandler(Home.this);
+        zXingScannerView.setResultHandler(HomeActivity.this);
         zXingScannerView.startCamera();
     }
-     /**   @Override
+     /**@Override
         protected void onPause() {
             super.onPause();
             zXingScannerView.stopCamera();

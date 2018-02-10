@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TabbedProject</string>
+    <string name="app_name">RestoApp</string>
     <string name="tab_text_1">Promo</string>
     <string name="tab_text_2">Carta</string>
     <string name="tab_text_3">Pedidos</string>
@@ -7,9 +7,8 @@
     <string name="carta_text">Este es el Fragment Carta</string>
     <string name="pedidos_text">Este es el Fragment Pedidos</string>
     <string name="text_welcome">Bienvenido!</string>
-    <string name="button_carta">Ver Carta</string>
-    <string name="button_reservar">Sentarse</string>
+    <string name="button_carta">ESTOY EN CASA</string>
+    <string name="button_qrscanner">ESTOY EN LA MESA</string>
+    <string name="button_reservar">RESERVAR MESA</string>
     <string name="action_settings">Settings</string>
-
-
 </resources>

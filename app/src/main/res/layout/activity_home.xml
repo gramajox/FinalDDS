@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.xgramajo.tabbedproject.Home">
+    tools:context="com.example.xgramajo.tabbedproject.HomeActivity">
 
 <TextView
         android:id="@+id/textView"
@@ -26,12 +26,11 @@
         android:id="@+id/button_carta"
         android:layout_width="215dp"
         android:layout_height="42dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="186dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_alignBottom="@+id/button_reservar"
+        android:layout_alignStart="@+id/button_reservar"
+        android:layout_marginBottom="58dp"
         android:text="@string/button_carta"
-        android:textColor="@android:color/white"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -41,25 +40,35 @@
         android:id="@+id/button_reservar"
         android:layout_width="215dp"
         android:layout_height="42dp"
-        android:layout_alignTop="@+id/button_carta"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="76dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/button"
+        android:layout_marginBottom="62dp"
         android:text="@string/button_reservar"
-        android:textColor="@android:color/white"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:onClick="scan"/>
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="215dp"
+        android:layout_height="42dp"
+        android:layout_above="@+id/button_carta"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:onClick="scan"
+        android:text="@string/button_qrscanner" />
+
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="180dp"
         android:layout_height="150dp"
-        android:layout_above="@+id/button_carta"
+        android:layout_above="@+id/button"
         android:layout_alignStart="@+id/textView"
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="47dp"
         app:srcCompat="@drawable/cubiertos" />
+
 
 </RelativeLayout>
