@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TabbedProject</string>
+    <string name="tab_text_1">Promo</string>
+    <string name="tab_text_2">Carta</string>
+    <string name="tab_text_3">Pedidos</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="button_promo">PROMO</string>
+    <string name="promo_text">Este es el Fragment Promo</string>
+    <string name="carta_text">Este es el Fragment Carta</string>
+    <string name="button_carta">CARTA</string>
+    <string name="pedidos_text">Este es el Fragment Pedidos</string>
+    <string name="button_pedidos">PEDIDOS</string>
+</resources>
