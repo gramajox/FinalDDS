@@ -6,10 +6,9 @@
     <string name="promo_text">Este es el Fragment Promo</string>
     <string name="carta_text">Este es el Fragment Carta</string>
     <string name="pedidos_text">Este es el Fragment Pedidos</string>
-    <string name="text_welcome">Bienvenido!!</string>
+    <string name="text_welcome">Bienvenido!</string>
     <string name="button_carta">Ver Carta</string>
     <string name="button_reservar">Sentarse</string>
-    <string name="scane_mesa">Scanear ID Mesa</string>
     <string name="action_settings">Settings</string>
 
 
