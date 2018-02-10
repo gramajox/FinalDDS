@@ -42,8 +42,8 @@ public class Home extends AppCompatActivity implements ZXingScannerView.ResultHa
             }
         });
 
-        /**Accion boton 2*/
-/**
+        /**Accion boton 2
+
         btReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
