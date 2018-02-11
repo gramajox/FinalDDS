@@ -1,77 +1,56 @@
 package com.example.xgramajo.tabbedproject;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ProductListAdapter extends ArrayAdapter<ProductClass> {
+public class ProductListAdapter extends BaseAdapter{
 
-    private static final String TAG = "ProductListAdapter";
+    private Activity context;
+    private ArrayList<ProductClass> products;
+    private static LayoutInflater inflater = null;
 
-    private Context mContext;
-    private int mResource;
-
-    /**
-     * Default constructor for the ProductListAdapter
-     * @param context
-     * @param resource
-     * @param objects
-     */
-    public ProductListAdapter(Context context, int resource, ArrayList<ProductClass> objects) {
-        super(context, resource, objects);
-        mContext = context;
-        mResource = resource;
+    public ProductListAdapter(Activity context, ArrayList<ProductClass> products) {
+        this.context = context;
+        this.products = products;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    /**
-     * Holds variables in a View
-     */
-    private static class ViewHolder {
-        TextView name;
-        TextView description;
-        TextView category;
+    @Override
+    public int getCount() {
+        return products.size();
     }
 
-    @NonNull
+    @Override
+    public Object getItem(int position) {
+        return products.get(position);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //get the persons information
-        String name = getItem(position).getName();
-        String description = getItem(position).getDescription();
-        String category = getItem(position).getCategory();
-        Integer price = getItem(position).getPrice();
+        View itemView = convertView;
 
-        //Create the product object with the information
-        ProductClass product = new ProductClass(name,description,category,price);
+        itemView = (itemView == null) ? inflater.inflate(R.layout.adapter_products_view, null): itemView;
 
-        //ViewHolder object
-        ViewHolder holder;
+        TextView textViewName = (TextView) itemView.findViewById(R.id.textView1);
+        TextView textViewDescription = (TextView) itemView.findViewById(R.id.textView2);
 
+        ProductClass selectedProduct = products.get(position);
 
-        if(convertView == null){
-            LayoutInflater inflater = LayoutInflater.from(mContext);
-            convertView = inflater.inflate(mResource, parent, false);
-            holder = new ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.textView1);
-            holder.description = (TextView) convertView.findViewById(R.id.textView2);
-            holder.category = (TextView) convertView.findViewById(R.id.textView3);
+        textViewName.setText(selectedProduct.getName());
+        textViewDescription.setText(selectedProduct.getDescription());
 
-            convertView.setTag(holder);
-        }
-        else{
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        holder.name.setText(product.getName());
-        holder.description.setText(product.getDescription());
-        holder.category.setText(product.getCategory());
-
-        return convertView;
+        return itemView;
     }
 }

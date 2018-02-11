@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     android:weightSum="100">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_weight="80"
-        android:id="@+id/textView1"/>
+    <ImageView
+        android:id="@+id/productImage"
+        android:layout_width="80dp"
+        android:layout_height="60dp"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -19,18 +18,17 @@
 
         <TextView
             android:gravity="center"
-            android:text="TextView2"
+            android:text="TextView1"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:id="@+id/textView2"/>
+            android:id="@+id/textView1"/>
 
         <TextView
             android:gravity="center"
-            android:text="TextView3"
+            android:text="TextView2"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/textView3"
-            android:layout_below="@+id/textView2"/>
+            android:id="@+id/textView2" />
 
     </LinearLayout>
 

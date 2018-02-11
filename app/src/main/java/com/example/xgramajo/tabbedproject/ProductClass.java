@@ -1,6 +1,5 @@
 package com.example.xgramajo.tabbedproject;
 
-import android.media.Image;
 
 public class ProductClass {
     private String name;
