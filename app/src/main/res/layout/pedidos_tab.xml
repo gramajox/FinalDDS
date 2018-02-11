@@ -4,14 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textSize="25sp"
-        android:text="@string/pedidos_text"
-        android:layout_marginTop="40dp"
-        android:id="@+id/textTab1"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="100">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="80"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="20">
+
+                <TextView
+                    android:gravity="center"
+                    android:text="TextView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:id="@+id/textView2"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:text="TextView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/textView3"
+                    android:layout_below="@+id/textView2"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </RelativeLayout>
