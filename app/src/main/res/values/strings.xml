@@ -11,4 +11,6 @@
     <string name="button_qrscanner">Leer ID Mesa</string>
     <string name="button_reservar">Reservar</string>
     <string name="action_settings">Settings</string>
+    <string name="textProductName">Name of Product</string>
+    <string name="textProductDescription">Description of Product</string>
 </resources>

@@ -25,11 +25,38 @@ public class CartaFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.carta_tab, container, false);
 
-        populateListView();
+        listViewProducts = (ListView) view.findViewById(R.id.listOfProducts);
+
+        ProductClass BifeChorizo = new ProductClass("Bife de chorizo","Una descripción del plato, con los ingredientes y presentación.","Carnes",135);
+        ProductClass EmpanadaCarne = new ProductClass("Empanadas de carne","Una descripción del plato, con los ingredientes y presentación.","Minutas",135);
+        ProductClass Sorrentinos = new ProductClass("Sorrentinos","Una descripción del plato, con los ingredientes y presentación.","Pastas",135);
+        ProductClass ChorizoCriollo = new ProductClass("Chorizo criollo","Una descripción del plato, con los ingredientes y presentación.","Minutas",135);
+        ProductClass Milanesas = new ProductClass("Milanesas","Una descripción del plato, con los ingredientes y presentación.","Minutas",135);
+
+        products.add(BifeChorizo);
+        products.add(EmpanadaCarne);
+        products.add(Sorrentinos);
+        products.add(ChorizoCriollo);
+        products.add(Milanesas);
+        products.add(BifeChorizo);
+        products.add(EmpanadaCarne);
+        products.add(Sorrentinos);
+        products.add(ChorizoCriollo);
+        products.add(Milanesas);
+        products.add(BifeChorizo);
+        products.add(EmpanadaCarne);
+        products.add(Sorrentinos);
+        products.add(ChorizoCriollo);
+        products.add(Milanesas);
+
+        adapter = new ProductListAdapter(getActivity(), products);
+        listViewProducts.setAdapter(adapter);
+
+        //populateListView();
 
         return view;
     }
-
+/**
     public void populateListView() {
         listViewProducts = (ListView) getActivity().findViewById(R.id.listOfProducts);
         products.add(new ProductClass("milanesa","Alta Milanga","Minutas",135));
@@ -42,5 +69,5 @@ public class CartaFragment extends Fragment {
         adapter = new ProductListAdapter(getActivity(), products);
         listViewProducts.setAdapter(adapter);
     }
-
+*/
 }
