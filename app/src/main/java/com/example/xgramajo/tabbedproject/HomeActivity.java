@@ -34,7 +34,6 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
         btCarta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Esto debería FUNCIONARR.", Toast.LENGTH_LONG).show();
                 Intent myIntent = new Intent(HomeActivity.this, ManagerActivity.class);
                 startActivity(myIntent);
             }

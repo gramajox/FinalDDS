@@ -1,7 +1,9 @@
 package com.example.xgramajo.tabbedproject;
 
 
-public class ProductClass {
+import java.io.Serializable;
+
+public class ProductClass implements Serializable{
     private String name;
     private String description;
     private String category;

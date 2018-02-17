@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.xgramajo.tabbedproject.ManagerActivity">
+
+    <item
+        android:id="@+id/drawer_home"
+        android:title="@string/drawer_home"
+        android:icon="@drawable/ic_android_black_24dp"/>
+    <item
+        android:id="@+id/drawer_reservations"
+        android:title="@string/drawer_reservations"
+        android:icon="@drawable/ic_android_black_24dp"/>
+    <item
+        android:id="@+id/drawer_branch_offices"
+        android:title="@string/drawer_branch_offices"
+        android:icon="@drawable/ic_android_black_24dp"/>
+    <item
+        android:id="@+id/drawer_history"
+        android:title="@string/drawer_history"
+        android:icon="@drawable/ic_android_black_24dp"/>
+    <item
+        android:id="@+id/drawer_settings"
+        android:title="@string/drawer_settings"
+        android:icon="@drawable/ic_android_black_24dp"/>
+</menu>

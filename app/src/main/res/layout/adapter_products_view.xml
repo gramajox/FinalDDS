@@ -3,18 +3,31 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="100">
+    android:weightSum="200"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
 
-    <ImageView
-        android:id="@+id/productImage"
-        android:layout_width="80dp"
+    <TextView
+        android:gravity="start"
+        android:textStyle="italic"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/fab_margin"
+        android:paddingBottom="@dimen/fab_margin"
         android:layout_height="60dp"
-        android:theme="@style/AppTheme" />
+        android:layout_weight="90"
+        android:textAlignment="center"
+        android:id="@+id/product_price"
+        android:text="@string/textProductPrice"/>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="@dimen/fab_margin"
+        android:paddingEnd="@dimen/fab_margin"
+        android:paddingTop="@dimen/fab_margin"
+        android:paddingBottom="@dimen/fab_margin"
         android:layout_weight="20">
 
         <TextView
@@ -23,15 +36,21 @@
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:id="@+id/textView1"/>
+            android:id="@+id/product_name"/>
 
         <TextView
             android:gravity="start"
             android:text="@string/textProductDescription"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/textView2" />
+            android:id="@+id/product_description" />
 
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:contentDescription="@string/info_product"
+        android:id="@+id/product_button"/>
 
 </LinearLayout>

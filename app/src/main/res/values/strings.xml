@@ -1,16 +1,33 @@
 <resources>
     <string name="app_name">RestoApp</string>
+
     <string name="tab_text_1">Promo</string>
     <string name="tab_text_2">Carta</string>
     <string name="tab_text_3">Pedidos</string>
+
     <string name="promo_text">Este es el Fragment Promo</string>
     <string name="carta_text">Este es el Fragment Carta</string>
     <string name="pedidos_text">Este es el Fragment Pedidos</string>
+
     <string name="text_welcome">Bienvenido!</string>
+
     <string name="button_carta">Ver Carta</string>
     <string name="button_qrscanner">Leer ID Mesa</string>
     <string name="button_reservar">Reservar</string>
-    <string name="action_settings">Settings</string>
+
     <string name="textProductName">Name of Product</string>
     <string name="textProductDescription">Description of Product</string>
+
+    <string name="title_entradas">ENTRADAS</string>
+    <string name="title_carnes">CARNES</string>
+
+    <string name="drawer_settings">Settings</string>
+    <string name="drawer_branch_offices">Sucursales</string>
+    <string name="drawer_reservations">Reservas</string>
+    <string name="drawer_home">Inicio</string>
+    <string name="drawer_history">Mi Historial</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="info_product">info_product</string>
+    <string name="textProductPrice">$price</string>
 </resources>
