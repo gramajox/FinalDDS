@@ -37,11 +37,6 @@ public class PedidosFragment extends Fragment {
 
         ArrayList<ProductClass> selectedList = bundle.getParcelableArrayList("products");
 
-        for(int x=0; x == selectedList.size() ; x++) {
-            namesSelectedList.add(selectedList.get(x).getName());
-        }
-
-/*
         listViewActiveCommand = (ListView) view.findViewById(R.id.active_command_list);
         listViewCommands = (ListView) view.findViewById(R.id.commands_list);
 
@@ -52,7 +47,11 @@ public class PedidosFragment extends Fragment {
         return view;
     }
 
-    public void setProducts(ArrayList<ProductClass> selectedList){
+    public void setProducts(ArrayList<ProductClass> products){
+        selectedList = products;
 
+        for(int x=0; x == selectedList.size() ; x++) {
+            namesSelectedList.add(selectedList.get(x).getName());
+        }
     }
 }
