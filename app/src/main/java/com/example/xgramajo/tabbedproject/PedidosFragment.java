@@ -23,21 +23,23 @@ public class PedidosFragment extends Fragment {
     private ListView listViewActiveCommand;
     private ListView listViewCommands;
     private ArrayList<String> namesSelectedList;
+    private ArrayList<ProductClass> selectedList;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pedidos_tab,container,false);
 
+
+
         /**Interface*/
-        Bundle bundle = getArguments();
+        /*Bundle bundle = getArguments();
 
         ArrayList<ProductClass> selectedList = bundle.getParcelableArrayList("products");
 
         for(int x=0; x == selectedList.size() ; x++) {
             namesSelectedList.add(selectedList.get(x).getName());
         }
-
 
 /*
         listViewActiveCommand = (ListView) view.findViewById(R.id.active_command_list);
@@ -50,4 +52,7 @@ public class PedidosFragment extends Fragment {
         return view;
     }
 
+    public void setProducts(ArrayList<ProductClass> selectedList){
+
+    }
 }

@@ -125,10 +125,10 @@ public class CartaFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /**MANDAR AL FRAGMENT PEDIDOS LA LISTA DE SELECCIONADOS
+                /**MANDAR AL FRAGMENT PEDIDOS LA LISTA DE SELECCIONADOS*/
 
                 sendProducts.setSelectedList(selectedProducts);
-*/
+
                 selectedProducts.clear();
                 layoutSelected.setVisibility(GONE);
             }

@@ -74,12 +74,15 @@ public class ManagerActivity extends AppCompatActivity implements CartaFragment.
     @Override
     public void setSelectedList(ArrayList<ProductClass> selectedList){
 
-        PedidosFragment pedidosFragment =/*new PedidosFragment();*/(PedidosFragment) mSectionsPageAdapter.getItem(2);
+        PedidosFragment pedidosFragment = /*new PedidosFragment();*/(PedidosFragment) mSectionsPageAdapter.getItem(2);
+
+        pedidosFragment.setProducts(selectedList);
+        /*
         Bundle bundle = new Bundle();
-        /**Parcelable???? funciona*/
+        /**Parcelable???? funciona
         bundle.putParcelableArrayList("products",selectedList);
         pedidosFragment.setArguments(bundle);
-
+*/
         FragmentTransaction fragmentTransaction =   getSupportFragmentManager().beginTransaction().replace(R.id.container, pedidosFragment,null);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
