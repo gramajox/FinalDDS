@@ -49,9 +49,9 @@ public class PedidosFragment extends Fragment {
 
     public void setProducts(ArrayList<ProductClass> products){
         selectedList = products;
-
+/*
         for(int x=0; x == selectedList.size() ; x++) {
             namesSelectedList.add(selectedList.get(x).getName());
-        }
+        }*/
     }
 }
