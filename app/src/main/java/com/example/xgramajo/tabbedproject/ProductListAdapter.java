@@ -63,22 +63,13 @@ public class ProductListAdapter extends ArrayAdapter<ProductClass> {
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**ACA TENGO QUE HACER QUE SE AGREGUE A selProdList
-                 * AGREGAR VARIABLE EN CLASE PRODUCTO? QUE SETEE UN VALOR...*/
                 checkCheckBox(position, !mSelectedItemsIds.get(position));
             }
         });
 
         return view;
     }
-/**ESTO FUNCIONA.....
-    private void setupItem(PaymentHolder holder) {
-        holder.name.setText(holder.Product.getName());
-        holder.description.setText(holder.Product.getDescription());
-        holder.price.setText("$"+String.valueOf(holder.Product.getPrice()));
 
-    }
- */
     public static class PaymentHolder {
         ProductClass Product;
         TextView name;
@@ -87,30 +78,27 @@ public class ProductListAdapter extends ArrayAdapter<ProductClass> {
         TextView price;
     }
 
-    /**
-     * Check the Checkbox if not checked
-     **/
+    /**ESTO ES LO QUE HACEN LOS CHECKBOX*/
     public void checkCheckBox(int position, boolean value) {
-        if (value)
+        if (value) {
             mSelectedItemsIds.put(position, true);
-        else
+            Toast.makeText(getContext(), "Check "+position, Toast.LENGTH_LONG).show();
+        }
+        else {
             mSelectedItemsIds.delete(position);
-
+            Toast.makeText(getContext(), "Uncheck "+position, Toast.LENGTH_LONG).show();
+        }
         notifyDataSetChanged();
     }
 
-    /**
-     * Return the selected Checkbox IDs
-     **/
     public SparseBooleanArray getSelectedIds() {
         return mSelectedItemsIds;
     }
-        /*********************************************/
+
     @Override
     public int getCount() {
         return products.size();
     }
-
 
     @Override
     public long getItemId(int i) {

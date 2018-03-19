@@ -6,22 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static android.view.View.GONE;
 
@@ -88,6 +83,7 @@ public class CartaFragment extends Fragment {
         adapter2 = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, selectedProducts);
         listViewSelectedProducts.setAdapter(adapter2);
 
+        /**LLEVA A VISTA DEL PRODUCTO*/
         listViewSelectedProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -113,7 +109,6 @@ public class CartaFragment extends Fragment {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //adapter2.clear();
                 selectedProducts.add(Rabas);
                 adapter2.notifyDataSetChanged();
                 layoutSelected.setVisibility(View.VISIBLE);
@@ -125,8 +120,6 @@ public class CartaFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /**MANDAR AL FRAGMENT PEDIDOS LA LISTA DE SELECCIONADOS*/
-
                 sendProducts.setSelectedList(selectedProducts);
 
                 selectedProducts.clear();
@@ -178,5 +171,9 @@ public class CartaFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    public void addProduct(ProductClass p) {
+        selectedProducts.add(p);
     }
 }
