@@ -29,26 +29,22 @@ public class PedidosFragment extends Fragment {
         listViewCommands = (ListView) view.findViewById(R.id.commands_list);
 
 
-
         return view;
     }
 
-    /**Interface*/
+    /**Interfaz 1*/
     public void setProducts(ArrayList<ProductClass> products){
 
         if (products == null) {
 
         } else {
-            /*selectedList.addAll(products);*/
+
             selectedList = products;
 
-            adapter = null;
             adapter = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, selectedList);
             listViewActiveCommand.setAdapter(adapter);
 
-            adapter.notifyDataSetChanged();
-
-            Toast.makeText(getContext(), "se agregaron: "+selectedList.size()+" productos.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Llegaron: "+selectedList.size()+" productos a Pedidos.", Toast.LENGTH_LONG).show();
         }
     }
 }

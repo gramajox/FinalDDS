@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -94,4 +97,20 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
             zXingScannerView.resumeCameraPreview(this);
         }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser != null) {
+
+        } else {
+
+            Intent myIntent = new Intent(HomeActivity.this, LoginActivity.class);
+            startActivity(myIntent);
+
+        }
+
+    }
 }

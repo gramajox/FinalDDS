@@ -29,7 +29,7 @@ public class CartaFragment extends Fragment {
     private ProductListAdapter adapter1;
     private ProductListAdapter adapter2;
 
-    /**Comunicaciones fragments*/
+    /**Interfaz 1*/
     private SendProducts sendProducts;
 
     /*private static final String TAG = "Tab1Fragment";*/
@@ -66,6 +66,7 @@ public class CartaFragment extends Fragment {
         adapter1 = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, products);
         listViewProducts.setAdapter(adapter1);
 
+        /**LLEVA A VISTA DEL PRODUCTO DESDE LISTA DE PRODUCTOS*/
         listViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -83,7 +84,7 @@ public class CartaFragment extends Fragment {
         adapter2 = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, selectedProducts);
         listViewSelectedProducts.setAdapter(adapter2);
 
-        /**LLEVA A VISTA DEL PRODUCTO*/
+        /**LLEVA A VISTA DEL PRODUCTO DESDE LISTA DE SELECCIONADOS*/
         listViewSelectedProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -99,27 +100,29 @@ public class CartaFragment extends Fragment {
         ListUtils.setDynamicHeight(listViewProducts);
         ListUtils.setDynamicHeight(listViewSelectedProducts);
 
-        /**CHECKBOXES*/
-        Button addButton = (Button) view.findViewById(R.id.add_button);
-        Button testButton = (Button) view.findViewById(R.id.testing_button);
 
+        Button addButton = (Button) view.findViewById(R.id.add_button);
+        /*
+        Button testButton = (Button) view.findViewById(R.id.testing_button);
+*/
         final LinearLayout layoutSelected = (LinearLayout) view.findViewById(R.id.selected_view);
         layoutSelected.setVisibility(GONE);
-
+/*
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedProducts.add(Rabas);
-                adapter2.notifyDataSetChanged();
-                layoutSelected.setVisibility(View.VISIBLE);
 
+                selectedProducts.add(EmpanadaCarne);
+
+                layoutSelected.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), "Productos seleccionados: " + selectedProducts.size(), Toast.LENGTH_LONG).show();
             }
         });
-
+*/
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 sendProducts.setSelectedList(selectedProducts);
 
                 selectedProducts.clear();
@@ -151,7 +154,7 @@ public class CartaFragment extends Fragment {
         }
     }
 
-    /**COMUNICACION CON OTROS FRAGMENTS*/
+    /**Interfaz 1*/
     public interface SendProducts {
         public void setSelectedList(ArrayList<ProductClass> selectedList);
     }

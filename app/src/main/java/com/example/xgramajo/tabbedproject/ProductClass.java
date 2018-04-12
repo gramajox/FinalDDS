@@ -77,6 +77,10 @@ public class ProductClass /**esto funcionaba*//* implements Serializable*/ /**es
         this.price = price;
     }
 
+    public ProductClass getProduct() {
+        return this;
+    }
+
     @Override
     public int describeContents() {
         return 0;

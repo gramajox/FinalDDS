@@ -4,23 +4,23 @@
     tools:context="com.example.xgramajo.tabbedproject.ManagerActivity">
 
     <item
-        android:id="@+id/drawer_home"
-        android:title="@string/drawer_home"
+        android:id="@+id/menu_home"
+        android:title="@string/menu_home"
         android:icon="@drawable/ic_android_black_24dp"/>
     <item
-        android:id="@+id/drawer_reservations"
-        android:title="@string/drawer_reservations"
+        android:id="@+id/menu_reservations"
+        android:title="@string/menu_reservations"
         android:icon="@drawable/ic_android_black_24dp"/>
     <item
-        android:id="@+id/drawer_branch_offices"
-        android:title="@string/drawer_branch_offices"
+        android:id="@+id/menu_branch_offices"
+        android:title="@string/menu_branch_offices"
         android:icon="@drawable/ic_android_black_24dp"/>
     <item
-        android:id="@+id/drawer_history"
-        android:title="@string/drawer_history"
+        android:id="@+id/menu_history"
+        android:title="@string/menu_history"
         android:icon="@drawable/ic_android_black_24dp"/>
     <item
-        android:id="@+id/drawer_settings"
-        android:title="@string/drawer_settings"
-        android:icon="@drawable/ic_android_black_24dp"/>
+        android:id="@+id/menu_LogOut"
+        android:icon="@drawable/ic_android_black_24dp"
+        android:title="@string/menu_logOut" />
 </menu>

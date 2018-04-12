@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.xgramajo.tabbedproject">
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -21,12 +22,24 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ManagerActivity"
+        <activity
+            android:name=".ManagerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
-        <activity android:name=".ProductActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
+        <activity
+            android:name=".ProductActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait" />
 
     </application>
 
