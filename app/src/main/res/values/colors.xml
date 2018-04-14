@@ -7,4 +7,5 @@
     <color name="textColor">#515151</color>
     <color name="navigationBarColor">#002623</color>
     <color name="background_low">#4a01483c</color>
+    <color name="foreground_material_light">#42a081</color>
 </resources>

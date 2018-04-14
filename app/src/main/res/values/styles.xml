@@ -4,6 +4,7 @@
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColor">@color/textColor</item>
+        <item name="android:colorForeground">@color/foreground_material_light</item>
 
     </style>
     <style name="Theme.AppCompat.NoActionBar" parent="Theme.AppCompat.Light">
@@ -14,5 +15,8 @@
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
+    </style>
+    <style name="ToolbarColoredMenuIcon" parent="AppTheme">
+        <item name="android:textColorSecondary"></item>
     </style>
 </resources>

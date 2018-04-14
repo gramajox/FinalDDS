@@ -21,7 +21,7 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
     private ZXingScannerView zXingScannerView;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
 
-    Button btCarta, btReserva;
+    Button btCarta, btReserva, btScan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,15 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
 
         btCarta = findViewById(R.id.button_carta);
         btReserva = findViewById(R.id.button_reservar);
+        btScan = findViewById(R.id.button_scan);
 
+        /**Accion button_scanQR*/
+        btScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scan(view);
+            }
+        });
 
         /**Accion button_carta*/
 
@@ -39,6 +47,7 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
             public void onClick(View view) {
                 Intent myIntent = new Intent(HomeActivity.this, ManagerActivity.class);
                 startActivity(myIntent);
+                finish();
             }
         });
 
@@ -47,7 +56,7 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
         btReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "LLAMAR AL RESTO.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Llama al Restaurante", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -94,6 +103,11 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
         @Override
         public void handleResult(Result result) {
             Toast.makeText(getApplicationContext(),result.getText(),Toast.LENGTH_LONG).show();
+
+            Intent myIntent = new Intent(HomeActivity.this, ManagerActivity.class);
+            startActivity(myIntent);
+            finish();
+
             zXingScannerView.resumeCameraPreview(this);
         }
 
@@ -109,6 +123,7 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
 
             Intent myIntent = new Intent(HomeActivity.this, LoginActivity.class);
             startActivity(myIntent);
+            finish();
 
         }
 

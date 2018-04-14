@@ -83,16 +83,22 @@ public class ManagerActivity extends AppCompatActivity implements CartaFragment.
         switch (item.getItemId()) {
 
             case R.id.menu_LogOut:
+
                 logOut();
+
                 return true;
 
             case R.id.menu_home:
 
-                Intent settingsIntent = new Intent(ManagerActivity.this, HomeActivity.class);
-                startActivity(settingsIntent);
+                Intent homeIntent = new Intent(ManagerActivity.this, HomeActivity.class);
+                startActivity(homeIntent);
 
                 return true;
 
+            case R.id.menu_scan:
+
+                Intent homeScanIntent = new Intent(ManagerActivity.this, HomeActivity.class);
+                startActivity(homeScanIntent);
 
             default:
                 return false;

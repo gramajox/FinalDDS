@@ -72,11 +72,14 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if(task.isSuccessful()){
-/**
-                                    Intent setupIntent = new Intent(RegisterActivity.this, SetupActivity.class);
-                                    startActivity(setupIntent);
+
+                                    Toast.makeText(RegisterActivity.this, "Cuenta creada con exito.", Toast.LENGTH_LONG).show();
+
+                                    Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                    startActivity(loginIntent);
+
                                     finish();
-*/
+
                                 } else {
 
                                     String errorMessage = task.getException().getMessage();
@@ -91,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     } else {
 
-                        Toast.makeText(RegisterActivity.this, "Confirm Password and Password Field doesn't match.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, "Las contaseñas no coinciden.", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -109,9 +112,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-/**
+
             sendToMain();
-*/
+
         }
 
     }

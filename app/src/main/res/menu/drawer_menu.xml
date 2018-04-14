@@ -8,16 +8,16 @@
         android:title="@string/menu_home"
         android:icon="@drawable/ic_android_black_24dp"/>
     <item
-        android:id="@+id/menu_reservations"
-        android:title="@string/menu_reservations"
-        android:icon="@drawable/ic_android_black_24dp"/>
-    <item
-        android:id="@+id/menu_branch_offices"
-        android:title="@string/menu_branch_offices"
+        android:id="@+id/menu_scan"
+        android:title="@string/menu_scan"
         android:icon="@drawable/ic_android_black_24dp"/>
     <item
         android:id="@+id/menu_history"
         android:title="@string/menu_history"
+        android:icon="@drawable/ic_android_black_24dp"/>
+    <item
+        android:id="@+id/menu_reservations"
+        android:title="@string/menu_reservations"
         android:icon="@drawable/ic_android_black_24dp"/>
     <item
         android:id="@+id/menu_LogOut"

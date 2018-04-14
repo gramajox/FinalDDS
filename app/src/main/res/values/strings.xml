@@ -22,7 +22,7 @@
 
     <!--Navigation Drawer-->
     <string name="menu_logOut">Log Out</string>
-    <string name="menu_branch_offices">Sucursales</string>
+    <string name="menu_scan">Ingresar Mesa</string>
     <string name="menu_reservations">Reservas</string>
     <string name="menu_home">Inicio</string>
     <string name="menu_history">Mi Historial</string>
@@ -32,10 +32,7 @@
     <string name="close">Close</string>
 
     <!--Promo Fragment-->
-    <string name="promo_1">TEST PROMO 1</string>
-    <string name="promo_2">TEST PROMO 2</string>
-    <string name="promo_3">TEST PROMO 3</string>
-    <string name="promo_4">TEST PROMO 4</string>
+
 
     <!--Pedidos Fragment-->
     <string name="active_command_text">Comanda Activa</string>
