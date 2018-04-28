@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -46,8 +45,8 @@ public class PedidosFragment extends Fragment {
         listViewActiveCommand = (ListView) view.findViewById(R.id.active_command_list);
         listViewCommands = (ListView) view.findViewById(R.id.commands_list);
 
-        CartaFragmentFB.ListUtils.setDynamicHeight(listViewActiveCommand);
-        CartaFragmentFB.ListUtils.setDynamicHeight(listViewCommands);
+        CartaFragment.ListUtils.setDynamicHeight(listViewActiveCommand);
+        CartaFragment.ListUtils.setDynamicHeight(listViewCommands);
 
         sendBtn = (Button) view.findViewById(R.id.send_button);
         cancel1Btn = (Button) view.findViewById(R.id.cancel_button_1);

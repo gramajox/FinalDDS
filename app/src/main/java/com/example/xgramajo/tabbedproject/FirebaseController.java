@@ -1,7 +1,5 @@
 package com.example.xgramajo.tabbedproject;
 
-import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

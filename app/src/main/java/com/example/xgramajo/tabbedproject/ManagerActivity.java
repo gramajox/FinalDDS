@@ -12,7 +12,7 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-public class ManagerActivity extends AppCompatActivity implements CartaFragmentFB.SendProducts{
+public class ManagerActivity extends AppCompatActivity implements CartaFragment.SendProducts{
 
     private static final String TAG = "MainActivity";
     private SectionsPageAdapter mSectionsPageAdapter;
@@ -45,8 +45,7 @@ public class ManagerActivity extends AppCompatActivity implements CartaFragmentF
 
 
     private void setupViewPager(ViewPager viewPager) {
-        /*mSectionsPageAdapter.addFragment(new PromoFragment(), "Promo");*/
-        mSectionsPageAdapter.addFragment(new CartaFragmentFB(), "Carta");
+        mSectionsPageAdapter.addFragment(new CartaFragment(), "Carta");
         mSectionsPageAdapter.addFragment(new PedidosFragment(), "Pedidos");
         viewPager.setAdapter(mSectionsPageAdapter);
     }

@@ -56,7 +56,7 @@ public class ProductListAdapter extends ArrayAdapter<ProductClass> {
 
             @Override
             public void onClick(View view) {
-                CartaFragmentFB.selectProductFromList(products.get(position));
+                CartaFragment.selectProductFromList(products.get(position));
                 Toast.makeText(getContext(), "Producto seleccionado", Toast.LENGTH_LONG).show();
             }
         });

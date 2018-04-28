@@ -29,7 +29,7 @@ import java.util.Map;
 
 import static android.view.View.GONE;
 
-public class CartaFragmentFB extends Fragment {
+public class CartaFragment extends Fragment {
 
     private ListView listViewProducts;
     private ListView listViewSelectedProducts;
