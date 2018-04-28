@@ -10,26 +10,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.ArrayList;
 
-public class ManagerActivity extends AppCompatActivity implements CartaFragment.SendProducts{
+public class ManagerActivity extends AppCompatActivity implements CartaFragmentFB.SendProducts{
 
     private static final String TAG = "MainActivity";
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
-
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager);
         Log.d(TAG, "onCreate: Starting.");
-
-        mAuth = FirebaseAuth.getInstance();
 
         /**Toolbar*/
         Toolbar managerToolbar = findViewById(R.id.toolbar);
@@ -46,14 +39,14 @@ public class ManagerActivity extends AppCompatActivity implements CartaFragment.
         tabLayout.setupWithViewPager(mViewPager);
 
         /**ESTO DICE EN QUE TAB ARRANCA LA ACTIVITY*/
-        mViewPager.setCurrentItem(1);
+        mViewPager.setCurrentItem(0);
 
     }
 
 
     private void setupViewPager(ViewPager viewPager) {
-        mSectionsPageAdapter.addFragment(new PromoFragment(), "Promo");
-        mSectionsPageAdapter.addFragment(new CartaFragment(), "Carta");
+        /*mSectionsPageAdapter.addFragment(new PromoFragment(), "Promo");*/
+        mSectionsPageAdapter.addFragment(new CartaFragmentFB(), "Carta");
         mSectionsPageAdapter.addFragment(new PedidosFragment(), "Pedidos");
         viewPager.setAdapter(mSectionsPageAdapter);
     }
@@ -62,7 +55,7 @@ public class ManagerActivity extends AppCompatActivity implements CartaFragment.
     @Override
     public void setSelectedList(ArrayList<ProductClass> selectedList){
 
-        PedidosFragment pedidosFragment = (PedidosFragment) mSectionsPageAdapter.getItem(2);
+        PedidosFragment pedidosFragment = (PedidosFragment) mSectionsPageAdapter.getItem(1);
 
         pedidosFragment.setProducts(selectedList);
 
@@ -107,7 +100,7 @@ public class ManagerActivity extends AppCompatActivity implements CartaFragment.
     }
         private void logOut() {
 
-            mAuth.signOut();
+            LoginActivity.logOut();
             sendToLogin();
         }
 
@@ -115,8 +108,7 @@ public class ManagerActivity extends AppCompatActivity implements CartaFragment.
     protected void onStart() {
         super.onStart();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
+        if (LoginActivity.getCurrentUser() == null) {
 
             sendToLogin();
 

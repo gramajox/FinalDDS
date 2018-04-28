@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -32,15 +30,12 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
         btReserva = findViewById(R.id.button_reservar);
         btScan = findViewById(R.id.button_scan);
 
-        /**Accion button_scanQR*/
         btScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 scan(view);
             }
         });
-
-        /**Accion button_carta*/
 
         btCarta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,42 +46,30 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
             }
         });
 
-        /**Accion button_reservar*/
-
         btReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Llama al Restaurante", Toast.LENGTH_LONG).show();
             }
         });
+
     }
-    /**Funcion Scanner*/
 
     public void scan(View view) {
-        // Here, thisActivity is the current activity
+
         if (ContextCompat.checkSelfPermission(HomeActivity.this,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,
                     Manifest.permission.CAMERA)) {
 
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
             } else {
-
-                // No explanation needed, we can request the permission.
 
                 ActivityCompat.requestPermissions(HomeActivity.this,
                         new String[]{Manifest.permission.CAMERA},
                         MY_PERMISSIONS_REQUEST_CAMERA);
 
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         }
         zXingScannerView = new ZXingScannerView(getApplicationContext());
@@ -94,15 +77,12 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
         zXingScannerView.setResultHandler(HomeActivity.this);
         zXingScannerView.startCamera();
     }
-     /**@Override
-        protected void onPause() {
-            super.onPause();
-            zXingScannerView.stopCamera();
-        }
-*/
+
         @Override
         public void handleResult(Result result) {
-            Toast.makeText(getApplicationContext(),result.getText(),Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Mesa: " + result.getText(),Toast.LENGTH_LONG).show();
+
+            FirebaseController.setUserTable(result.getText());
 
             Intent myIntent = new Intent(HomeActivity.this, ManagerActivity.class);
             startActivity(myIntent);
@@ -115,17 +95,14 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
     protected void onStart() {
         super.onStart();
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (currentUser != null) {
+        if (LoginActivity.getCurrentUser() != null) {
 
         } else {
 
             Intent myIntent = new Intent(HomeActivity.this, LoginActivity.class);
             startActivity(myIntent);
             finish();
-
         }
-
     }
+
 }

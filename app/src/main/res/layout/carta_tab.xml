@@ -6,6 +6,7 @@
         android:fillViewport="true">
 
     <LinearLayout
+        android:id="@+id/products_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -40,26 +41,11 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/white"/>
 
-
         </LinearLayout>
-<!--
-        <Button
-            android:id="@+id/testing_button"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:background="@color/colorPrimary"
-            android:layout_gravity="end"
-            android:layout_marginTop="10dp"
-            android:text="checkBoxes"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"/>
--->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Categoria 1"
+                android:text="Estos son nuestros Productos"
                 android:textStyle="bold"/>
 
             <ListView

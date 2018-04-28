@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBtn;
     private Button loginRegBtn;
 
-    private FirebaseAuth mAuth;
+    static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private ProgressBar loginProgress;
 
@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,5 +111,15 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(mainIntent);
         finish();
 
+    }
+
+    public static FirebaseAuth getmAuth() {
+        return mAuth;
+    }
+    public static FirebaseUser getCurrentUser() {
+        return mAuth.getCurrentUser();
+    }
+    public static void logOut() {
+        mAuth.signOut();
     }
 }

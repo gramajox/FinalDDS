@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -28,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressBar reg_progress;
 
     private FirebaseAuth mAuth;
+    final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 if(task.isSuccessful()){
 
                                     Toast.makeText(RegisterActivity.this, "Cuenta creada con exito.", Toast.LENGTH_LONG).show();
+
+                                    createUser();
 
                                     Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     startActivity(loginIntent);
@@ -125,5 +130,14 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(mainIntent);
         finish();
 
+    }
+
+    private void createUser() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String userMail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        mDatabase.child("Users").child(userId).child("Mail").setValue(userMail);
+        mDatabase.child("Users").child(userId).child("Historial").setValue("");
+        mDatabase.child("Users").child(userId).child("Mesa").setValue("");
     }
 }

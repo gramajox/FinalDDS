@@ -1,11 +1,11 @@
 package com.example.xgramajo.tabbedproject;
 
+import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,57 +16,47 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 import static android.view.View.GONE;
 
-public class CartaFragment extends Fragment {
+public class CartaFragmentFB extends Fragment {
 
     private ListView listViewProducts;
     private ListView listViewSelectedProducts;
     private ArrayList<ProductClass> products = new ArrayList<>();
-    private ArrayList<ProductClass> selectedProducts = new ArrayList<>();
+    private static ArrayList<ProductClass> selectedProducts = new ArrayList<>();
     private ProductListAdapter adapter1;
-    private ProductListAdapter adapter2;
+    private static ProductListAdapter adapter2;
 
     /**Interfaz 1*/
     private SendProducts sendProducts;
-
-    /*private static final String TAG = "Tab1Fragment";*/
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.carta_tab, container, false);
 
-        /**SE CREAN LOS PRODUCTOS Y SE COMPLETA LA LISTA*/
-        final ProductClass Rabas =
-                new ProductClass("Rabas", "Con Alioli.",
-                        "Minutas", 135, R.drawable.rabas);
-        final ProductClass EmpanadaCarne =
-                new ProductClass("Empanadas de carne", "Carne suave, cortada a cuchillo, picante.",
-                        "Minutas", 200, R.drawable.empanadas);
-        final ProductClass TablaFiambres =
-                new ProductClass("Tabla: Friambres y Quesos", "Jamon cocido y crudo, lomito ahumado, bondiola, salamines picado fino, grueso y candelario, Queso sardo, gruyere y gouda",
-                        "Pastas", 230, R.drawable.tabla_fiambres);
-        final ProductClass HamburguesaCasera =
-                new ProductClass("Hamburguesa Casera", "Con cebolla caramelizada, rucula y cheddar.",
-                        "Minutas", 100, R.drawable.hamburguesa);
-        final ProductClass PizzaCapresse =
-                new ProductClass("Pizza Capresse", "Mozzarella, tomate, albahaca, aceitunas verdes.",
-                        "Minutas", 150, R.drawable.pizza);
+        final LinearLayout layoutSelected = (LinearLayout) view.findViewById(R.id.selected_view);
+        layoutSelected.setVisibility(GONE);
 
-        products.add(Rabas);products.add(EmpanadaCarne);products.add(TablaFiambres);products.add(HamburguesaCasera);products.add(PizzaCapresse);
-        products.add(Rabas);products.add(EmpanadaCarne);products.add(TablaFiambres);products.add(HamburguesaCasera);products.add(PizzaCapresse);
-        products.add(Rabas);products.add(EmpanadaCarne);products.add(TablaFiambres);products.add(HamburguesaCasera);products.add(PizzaCapresse);
+        listViewProducts         = (ListView) view.findViewById(R.id.productsList);
+        listViewSelectedProducts = (ListView) view.findViewById(R.id.selProdList);
 
-
-        /**ADAPTER CON HOLDER LISTA PRODUCTOS*/
-        listViewProducts = (ListView) view.findViewById(R.id.productsList);
         adapter1 = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, products);
-        listViewProducts.setAdapter(adapter1);
+        adapter2 = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, selectedProducts);
 
-        /**LLEVA A VISTA DEL PRODUCTO DESDE LISTA DE PRODUCTOS*/
+        listViewProducts.setAdapter(adapter1);
+        listViewSelectedProducts.setAdapter(adapter2);
+
         listViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -78,13 +68,6 @@ public class CartaFragment extends Fragment {
             }
         });
 
-
-        /**ADAPTER CON HOLDER LISTA SELECCIONADOS*/
-        listViewSelectedProducts = (ListView) view.findViewById(R.id.selProdList);
-        adapter2 = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, selectedProducts);
-        listViewSelectedProducts.setAdapter(adapter2);
-
-        /**LLEVA A VISTA DEL PRODUCTO DESDE LISTA DE SELECCIONADOS*/
         listViewSelectedProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -100,25 +83,9 @@ public class CartaFragment extends Fragment {
         ListUtils.setDynamicHeight(listViewProducts);
         ListUtils.setDynamicHeight(listViewSelectedProducts);
 
-
+        /**BOTON AGREGAR A COMANDA ACTUAL*/
         Button addButton = (Button) view.findViewById(R.id.add_button);
-        /*
-        Button testButton = (Button) view.findViewById(R.id.testing_button);
-*/
-        final LinearLayout layoutSelected = (LinearLayout) view.findViewById(R.id.selected_view);
-        layoutSelected.setVisibility(GONE);
-/*
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                selectedProducts.add(EmpanadaCarne);
-
-                layoutSelected.setVisibility(View.VISIBLE);
-                Toast.makeText(getActivity(), "Productos seleccionados: " + selectedProducts.size(), Toast.LENGTH_LONG).show();
-            }
-        });
-*/
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,9 +97,43 @@ public class CartaFragment extends Fragment {
             }
         });
 
+
+        /**LEVANTAR LOS PRODUCTOS DE FIREBASE Y METERLOS EN LA LISTVIEW*/
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                collectProducts((Map<String,Object>) dataSnapshot.child("Products").getValue());
+
+                Toast.makeText(getContext(), "Cantidad de Productos: " + products.size(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getContext(), "ERROR EN DATABASE", Toast.LENGTH_LONG).show();
+            }
+        });
+
         return view;
     }
+    /**AGREGA LOS PRODUCTOS EN LA LISTA*/
+    private void collectProducts(Map<String,Object> prod) {
 
+        for (Map.Entry<String,Object> entry : prod.entrySet()) {
+
+            Map singleProduct = (Map) entry.getValue();
+
+            adapter1.add(new ProductClass(
+                    (String) singleProduct.get("Name"),
+                    (String) singleProduct.get("Description"),
+                    (String) singleProduct.get("Category"),
+                    Integer.parseInt((String) singleProduct.get("Price")),
+                    R.drawable.empanadas));
+        }
+
+    }
+
+    /**ESTO SOLUCIONA LA VISTA DE VARIAS LISTVIEW EN LA MISMA PANTALLA*/
     public static class ListUtils {
         public static void setDynamicHeight(ListView mListView) {
             ListAdapter mListAdapter = mListView.getAdapter();
@@ -158,7 +159,6 @@ public class CartaFragment extends Fragment {
     public interface SendProducts {
         public void setSelectedList(ArrayList<ProductClass> selectedList);
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -171,12 +171,14 @@ public class CartaFragment extends Fragment {
         }
     }
 
+    /**Funcion que usa el ProductListAdapter para agregar los productos a selectProducts*/
+    public static void selectProductFromList(ProductClass p) {
+        adapter2.add(p);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
     }
 
-    public void addProduct(ProductClass p) {
-        selectedProducts.add(p);
-    }
 }

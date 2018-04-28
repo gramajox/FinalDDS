@@ -1,7 +1,6 @@
 package com.example.xgramajo.tabbedproject;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -9,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +20,6 @@ public class ProductListAdapter extends ArrayAdapter<ProductClass> {
     private int layoutResourceId;
 
     private SparseBooleanArray mSelectedItemsIds;
-
-    /**Interfaz 2*/
-
 
     /**Adapter con Holder*/
     public ProductListAdapter(Context context, int layoutResourceId, ArrayList<ProductClass> products) {
@@ -62,8 +56,8 @@ public class ProductListAdapter extends ArrayAdapter<ProductClass> {
 
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(getContext(), "Categoria: "+products.get(position).getCategory(), Toast.LENGTH_LONG).show();
+                CartaFragmentFB.selectProductFromList(products.get(position));
+                Toast.makeText(getContext(), "Producto seleccionado", Toast.LENGTH_LONG).show();
             }
         });
 

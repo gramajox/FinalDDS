@@ -1,11 +1,9 @@
 package com.example.xgramajo.tabbedproject;
 
-
-import android.media.ImageReader;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ProductClass /**esto funcionaba*//* implements Serializable*/ /**esto es para pasar el objeto de la lista a otra activity*/ implements Parcelable {
+public class ProductClass implements Parcelable {
 
     private String name;
     private String description;
