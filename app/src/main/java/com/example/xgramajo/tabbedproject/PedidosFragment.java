@@ -48,6 +48,8 @@ public class PedidosFragment extends Fragment {
         CartaFragment.ListUtils.setDynamicHeight(listViewActiveCommand);
         CartaFragment.ListUtils.setDynamicHeight(listViewCommands);
 
+
+
         sendBtn = (Button) view.findViewById(R.id.send_button);
         cancel1Btn = (Button) view.findViewById(R.id.cancel_button_1);
         countBtn = (Button) view.findViewById(R.id.count_button);
@@ -93,6 +95,7 @@ public class PedidosFragment extends Fragment {
                 selectedList.add(products.get(x));
             }
 
+            /**Le aplico el adapter aca porque sino rompe*/
             adapter = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, selectedList);
             listViewActiveCommand.setAdapter(adapter);
 

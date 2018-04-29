@@ -57,7 +57,7 @@ public class ProductListAdapter extends ArrayAdapter<ProductClass> {
             @Override
             public void onClick(View view) {
                 CartaFragment.selectProductFromList(products.get(position));
-                Toast.makeText(getContext(), "Producto seleccionado", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Producto: "+position+ " seleccionado", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -82,6 +82,4 @@ public class ProductListAdapter extends ArrayAdapter<ProductClass> {
     public int getCount() {
         return products.size();
     }
-
-
 }

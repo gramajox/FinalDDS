@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class CartaFragment extends Fragment {
 
@@ -46,7 +47,7 @@ public class CartaFragment extends Fragment {
         View view = inflater.inflate(R.layout.carta_tab, container, false);
 
         final LinearLayout layoutSelected = (LinearLayout) view.findViewById(R.id.selected_view);
-        layoutSelected.setVisibility(GONE);
+        /*layoutSelected.setVisibility(GONE);*/
 
         listViewProducts         = (ListView) view.findViewById(R.id.productsList);
         listViewSelectedProducts = (ListView) view.findViewById(R.id.selProdList);
@@ -92,8 +93,8 @@ public class CartaFragment extends Fragment {
 
                 sendProducts.setSelectedList(selectedProducts);
 
-                selectedProducts.clear();
-                layoutSelected.setVisibility(GONE);
+                selectedProducts.clear();/*
+                layoutSelected.setVisibility(GONE);*/
             }
         });
 
