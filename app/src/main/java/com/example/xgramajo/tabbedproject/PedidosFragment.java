@@ -23,7 +23,7 @@ public class PedidosFragment extends Fragment {
     private ArrayList<ProductClass> selectedList;
     private ArrayList<CommandClass> commandList;
 
-    private ProductListAdapter adapter;
+    private static ProductListAdapter adapter;
 
     Button sendBtn, cancel1Btn, countBtn;
 
@@ -45,10 +45,10 @@ public class PedidosFragment extends Fragment {
         listViewActiveCommand = (ListView) view.findViewById(R.id.active_command_list);
         listViewCommands = (ListView) view.findViewById(R.id.commands_list);
 
+
+
         CartaFragment.ListUtils.setDynamicHeight(listViewActiveCommand);
         CartaFragment.ListUtils.setDynamicHeight(listViewCommands);
-
-
 
         sendBtn = (Button) view.findViewById(R.id.send_button);
         cancel1Btn = (Button) view.findViewById(R.id.cancel_button_1);
@@ -87,19 +87,23 @@ public class PedidosFragment extends Fragment {
     /**Interfaz 1*/
     public void setProducts(ArrayList<ProductClass> products){
 
+        selectedList = products;
+        adapter = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, selectedList);
+        listViewActiveCommand.setAdapter(adapter);
+
+        adapter.setNotifyOnChange(true);
+
+        Toast.makeText(getContext(), "Llegaron: "+selectedList.size()+" productos a Pedidos.", Toast.LENGTH_LONG).show();
+/*
         if (products == null) {
 
         } else {
 
             for(int x = 0; x <= products.size(); x++){
-                selectedList.add(products.get(x));
+                adapter.add(products.get(x));
             }
 
-            /**Le aplico el adapter aca porque sino rompe*/
-            adapter = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, selectedList);
-            listViewActiveCommand.setAdapter(adapter);
-
             Toast.makeText(getContext(), "Llegaron: "+selectedList.size()+" productos a Pedidos.", Toast.LENGTH_LONG).show();
-        }
+        }*/
     }
 }

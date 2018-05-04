@@ -49,6 +49,22 @@ public class CartaFragment extends Fragment {
         final LinearLayout layoutSelected = (LinearLayout) view.findViewById(R.id.selected_view);
         /*layoutSelected.setVisibility(GONE);*/
 
+        /**LEVANTAR LOS PRODUCTOS DE FIREBASE Y METERLOS EN LA LISTVIEW*/
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                collectProducts((Map<String,Object>) dataSnapshot.child("Products").getValue());
+
+                Toast.makeText(getContext(), "Cantidad de Productos: " + products.size(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getContext(), "ERROR EN DATABASE", Toast.LENGTH_LONG).show();
+            }
+        });
+
         listViewProducts         = (ListView) view.findViewById(R.id.productsList);
         listViewSelectedProducts = (ListView) view.findViewById(R.id.selProdList);
 
@@ -98,23 +114,6 @@ public class CartaFragment extends Fragment {
             }
         });
 
-
-        /**LEVANTAR LOS PRODUCTOS DE FIREBASE Y METERLOS EN LA LISTVIEW*/
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                collectProducts((Map<String,Object>) dataSnapshot.child("Products").getValue());
-
-                Toast.makeText(getContext(), "Cantidad de Productos: " + products.size(), Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getContext(), "ERROR EN DATABASE", Toast.LENGTH_LONG).show();
-            }
-        });
-
         return view;
     }
     /**AGREGA LOS PRODUCTOS EN LA LISTA*/
@@ -160,6 +159,7 @@ public class CartaFragment extends Fragment {
     public interface SendProducts {
         public void setSelectedList(ArrayList<ProductClass> selectedList);
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
