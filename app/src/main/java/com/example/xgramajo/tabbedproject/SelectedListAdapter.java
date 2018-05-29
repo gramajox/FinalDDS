@@ -9,11 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ProductListAdapter extends ArrayAdapter<ProductClass> {
+public class SelectedListAdapter extends ArrayAdapter<ProductClass> {
 
     private ArrayList<ProductClass> products;
     private Context context;
@@ -21,8 +20,8 @@ public class ProductListAdapter extends ArrayAdapter<ProductClass> {
 
     private SparseBooleanArray mSelectedItemsIds;
 
-    /**Adapter con Holder*/
-    public ProductListAdapter(Context context, int layoutResourceId, ArrayList<ProductClass> products) {
+    /** Adapter con Holder */
+    public SelectedListAdapter(Context context, int layoutResourceId, ArrayList<ProductClass> products) {
         super(context, layoutResourceId, products);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -33,30 +32,28 @@ public class ProductListAdapter extends ArrayAdapter<ProductClass> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        PaymentHolder holder = null;
+        SelectedListAdapter.PaymentHolder holder = null;
 
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         view = inflater.inflate(layoutResourceId, parent, false);
 
-        holder = new PaymentHolder();
+        holder = new SelectedListAdapter.PaymentHolder();
         holder.Product = products.get(position);
-        holder.button = (Button)view.findViewById(R.id.product_button);
+        holder.button = (Button) view.findViewById(R.id.product_button);
 
-        holder.name = (TextView)view.findViewById(R.id.product_name);
-        holder.description = (TextView)view.findViewById(R.id.product_description);
-        holder.price = (TextView)view.findViewById(R.id.product_price);
+        holder.name = (TextView) view.findViewById(R.id.product_name);
+        holder.price = (TextView) view.findViewById(R.id.product_price);
 
         view.setTag(holder);
 
         holder.name.setText(holder.Product.getName());
-        holder.description.setText(holder.Product.getDescription());
-        holder.price.setText("$"+String.valueOf(holder.Product.getPrice()));
+        holder.price.setText("$" + String.valueOf(holder.Product.getPrice()));
 
         holder.button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                CartaFragment.selectProductFromList(products.get(position));
+                CartaFragment.removeFromSelected(products.get(position));
             }
         });
 
@@ -66,7 +63,6 @@ public class ProductListAdapter extends ArrayAdapter<ProductClass> {
     public static class PaymentHolder {
         ProductClass Product;
         TextView name;
-        TextView description;
         Button button;
         TextView price;
     }

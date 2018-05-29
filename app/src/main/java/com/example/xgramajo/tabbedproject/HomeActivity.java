@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -20,6 +21,8 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
 
     Button btCarta, btReserva, btScan;
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +43,15 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
         btCarta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(HomeActivity.this, ManagerActivity.class);
-                startActivity(myIntent);
-                finish();
+                if (FirebaseController.tableNumber == null) {
+                    Toast.makeText(getApplicationContext(), "Escanear mesa por favor", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Intent myIntent = new Intent(HomeActivity.this, ManagerActivity.class);
+                    startActivity(myIntent);
+                    finish();
+                }
+
             }
         });
 
@@ -65,7 +74,6 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
                     Manifest.permission.CAMERA)) {
 
             } else {
-
                 ActivityCompat.requestPermissions(HomeActivity.this,
                         new String[]{Manifest.permission.CAMERA},
                         MY_PERMISSIONS_REQUEST_CAMERA);
@@ -83,7 +91,8 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
             Toast.makeText(getApplicationContext(),"Mesa: " + result.getText(),Toast.LENGTH_LONG).show();
 
             FirebaseController.setUserTable(result.getText());
-
+            FirebaseController.tableNumber = result.getText();
+            
             Intent myIntent = new Intent(HomeActivity.this, ManagerActivity.class);
             startActivity(myIntent);
             finish();
@@ -96,9 +105,9 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
         super.onStart();
 
         if (LoginActivity.getCurrentUser() != null) {
+            FirebaseController.userID = mAuth.getCurrentUser().getUid();
 
         } else {
-
             Intent myIntent = new Intent(HomeActivity.this, LoginActivity.class);
             startActivity(myIntent);
             finish();

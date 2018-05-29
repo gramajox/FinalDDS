@@ -28,6 +28,7 @@ public class ManagerActivity extends AppCompatActivity implements CartaFragment.
         Toolbar managerToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(managerToolbar);
         getSupportActionBar().setTitle("Resto App");
+        getSupportActionBar().setSubtitle("Mesa actual: " + FirebaseController.tableNumber);
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
@@ -42,7 +43,6 @@ public class ManagerActivity extends AppCompatActivity implements CartaFragment.
         mViewPager.setCurrentItem(0);
 
     }
-
 
     private void setupViewPager(ViewPager viewPager) {
         mSectionsPageAdapter.addFragment(new CartaFragment(), "Carta");

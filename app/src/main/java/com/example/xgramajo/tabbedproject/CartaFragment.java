@@ -11,13 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,17 +23,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 public class CartaFragment extends Fragment {
 
     private ListView listViewProducts;
     private ListView listViewSelectedProducts;
-    private ArrayList<ProductClass> products = new ArrayList<>();
+
+    private static ProductListAdapter adapter1;
+    private static SelectedListAdapter adapter2;
+
+    private static ArrayList<ProductClass> products = new ArrayList<>();
     private static ArrayList<ProductClass> selectedProducts = new ArrayList<>();
-    private ProductListAdapter adapter1;
-    private static ProductListAdapter adapter2;
+
+    public static ArrayList<String> userHistoryString = new ArrayList<>();
 
     /**Interfaz 1*/
     private SendProducts sendProducts;
@@ -46,33 +43,48 @@ public class CartaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.carta_tab, container, false);
 
-        final LinearLayout layoutSelected = (LinearLayout) view.findViewById(R.id.selected_view);
-        /*layoutSelected.setVisibility(GONE);*/
-
         /**LEVANTAR LOS PRODUCTOS DE FIREBASE Y METERLOS EN LA LISTVIEW*/
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Products");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                collectProducts((Map<String,Object>) dataSnapshot.child("Products").getValue());
-
-                Toast.makeText(getContext(), "Cantidad de Productos: " + products.size(), Toast.LENGTH_LONG).show();
+                collectProducts((Map<String,Object>) dataSnapshot.getValue());
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getContext(), "ERROR EN DATABASE", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "ERROR EN DATABASE " + databaseError, Toast.LENGTH_LONG).show();
             }
         });
+/**
+        DatabaseReference databaseRef2 = databaseReference.child("Users").child(FirebaseController.userID).child("History");
+        databaseRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    String prodName = data.getValue().toString();
+                    userHistoryString.add(prodName);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
 
         listViewProducts         = (ListView) view.findViewById(R.id.productsList);
         listViewSelectedProducts = (ListView) view.findViewById(R.id.selProdList);
 
         adapter1 = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, products);
-        adapter2 = new ProductListAdapter(getActivity(), R.layout.adapter_products_view, selectedProducts);
+        adapter2 = new SelectedListAdapter(getActivity(), R.layout.adapter_selected_view, selectedProducts);
 
         listViewProducts.setAdapter(adapter1);
         listViewSelectedProducts.setAdapter(adapter2);
+/**
+        products.addAll(FirebaseController.getAllProducts());*/
 
         listViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -96,10 +108,6 @@ public class CartaFragment extends Fragment {
             }
         });
 
-        /**ESTO SOLUCIONA LA VISTA DE VARIAS LISTVIEW EN LA MISMA PANTALLA*/
-        ListUtils.setDynamicHeight(listViewProducts);
-        ListUtils.setDynamicHeight(listViewSelectedProducts);
-
         /**BOTON AGREGAR A COMANDA ACTUAL*/
         Button addButton = (Button) view.findViewById(R.id.add_button);
 
@@ -107,10 +115,10 @@ public class CartaFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                FirebaseController.addProductsInTable(selectedProducts);
                 sendProducts.setSelectedList(selectedProducts);
 
-                selectedProducts.clear();/*
-                layoutSelected.setVisibility(GONE);*/
+                adapter2.clear();
             }
         });
 
@@ -129,29 +137,6 @@ public class CartaFragment extends Fragment {
                     (String) singleProduct.get("Category"),
                     Integer.parseInt((String) singleProduct.get("Price")),
                     R.drawable.empanadas));
-        }
-
-    }
-
-    /**ESTO SOLUCIONA LA VISTA DE VARIAS LISTVIEW EN LA MISMA PANTALLA*/
-    public static class ListUtils {
-        public static void setDynamicHeight(ListView mListView) {
-            ListAdapter mListAdapter = mListView.getAdapter();
-            if (mListAdapter == null) {
-                // when adapter is null
-                return;
-            }
-            int height = 0;
-            int desiredWidth = View.MeasureSpec.makeMeasureSpec(mListView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-            for (int i = 0; i < mListAdapter.getCount(); i++) {
-                View listItem = mListAdapter.getView(i, null, mListView);
-                listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-                height += listItem.getMeasuredHeight();
-            }
-            ViewGroup.LayoutParams params = mListView.getLayoutParams();
-            params.height = height + (mListView.getDividerHeight() * (mListAdapter.getCount() - 1));
-            mListView.setLayoutParams(params);
-            mListView.requestLayout();
         }
     }
 
@@ -175,6 +160,18 @@ public class CartaFragment extends Fragment {
     /**Funcion que usa el ProductListAdapter para agregar los productos a selectProducts*/
     public static void selectProductFromList(ProductClass p) {
         adapter2.add(p);
+    }
+
+    public static void removeFromSelected(ProductClass p) {
+        adapter2.remove(p);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseController.loadAllProducts(products);
+
     }
 
     @Override
