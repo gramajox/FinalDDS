@@ -1,15 +1,13 @@
 package com.example.xgramajo.tabbedproject;
 
-import android.widget.Toast;
+import android.util.Log;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 
 public class FirebaseController {
 
@@ -18,17 +16,12 @@ public class FirebaseController {
     public static String tableNumber = "12341";
     public static String userID;
 
-    private static ArrayList<String> userHistoryString = new ArrayList<>();
-    private static ArrayList<String> tableProductsString = new ArrayList<>();
+    private ArrayList<String> userHistoryString = new ArrayList<>();
+    private ArrayList<String> tableProductsString = new ArrayList<>();
 
-    private static ArrayList<ProductClass> userHistory = new ArrayList<>();
-    private static ArrayList<ProductClass> tableProducts = new ArrayList<>();
+    private ArrayList<ProductClass> userHistory = new ArrayList<>();
+    private ArrayList<ProductClass> tableProducts = new ArrayList<>();
     private static ArrayList<ProductClass> allProducts = new ArrayList<>();
-
-
-    public static void loadAllProducts(ArrayList<ProductClass> prod) {
-        allProducts.addAll(prod);
-    }
 
     public static void setUserTable(String qrResult) {
         if (userID != null) {
@@ -82,8 +75,8 @@ public class FirebaseController {
         });
 
         return userHistoryString;
-    }*/
-
+    }
+ */
     public static void addProductsInTable(ArrayList<ProductClass> list) {
         if (list != null && tableNumber != null) {
             for (int x = 0; x < list.size(); x++) {
@@ -103,12 +96,39 @@ public class FirebaseController {
         /**databaseReference.child("Mesas").child(tableNumber).child("Comanda").removeValue(p.getName());*/
     }
 
-    /**
-    public static ArrayList<ProductClass> getAllProducts() {
+    public static void getAllProducts() {
+
+        readData(new FirebaseCallback() {
+            @Override
+            public void onCallback(ArrayList<ProductClass> list) {
+                Log.d("onCallback","Value = " + allProducts.size());
+                CartaFragment.loadAllProducts(allProducts);
+            }
+        });
+    }
+
+    private interface FirebaseCallback {
+        void onCallback(ArrayList<ProductClass> list);
+    }
+
+    private static void readData(final FirebaseCallback firebaseCallback) {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                collectProducts((Map<String,Object>) dataSnapshot.child("Products").getValue());
+                Map<String, Object> prod = (Map<String,Object>) dataSnapshot.child("Products").getValue();
+                for (Map.Entry<String,Object> entry : prod.entrySet()) {
+
+                    Map singleProduct = (Map) entry.getValue();
+
+                    allProducts.add(new ProductClass(
+                            (String) singleProduct.get("Name"),
+                            (String) singleProduct.get("Description"),
+                            (String) singleProduct.get("Category"),
+                            Integer.parseInt((String) singleProduct.get("Price")),
+                            R.drawable.empanadas));
+                    Log.d("EN EL CICLO","Value = " + allProducts.size());
+                }
+                firebaseCallback.onCallback(allProducts);
             }
 
             @Override
@@ -116,24 +136,5 @@ public class FirebaseController {
 
             }
         });
-
-        return allProducts;
     }
-
-    private static void collectProducts(Map<String, Object> prod) {
-
-        for (Map.Entry<String,Object> entry : prod.entrySet()) {
-
-            Map singleProduct = (Map) entry.getValue();
-
-            allProducts.add(new ProductClass(
-                    (String) singleProduct.get("Name"),
-                    (String) singleProduct.get("Description"),
-                    (String) singleProduct.get("Category"),
-                    Integer.parseInt((String) singleProduct.get("Price")),
-                    R.drawable.empanadas));
-        }
-
-    }*/
-
 }

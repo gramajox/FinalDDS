@@ -8,14 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 import java.util.ArrayList;
 
 public class PedidosFragment extends Fragment {
     private static final String TAG = "Tab3Fragment";
 
-    private ListView listViewActiveCommand;
-    private ListView listViewCommands;
     private ArrayList<ProductClass> selectedList = new ArrayList<>();
     private ArrayList<CommandClass> commandList = new ArrayList<>();
 
@@ -28,8 +25,8 @@ public class PedidosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pedidos_tab,container,false);
 
-        listViewActiveCommand = (ListView) view.findViewById(R.id.active_command_list);
-        listViewCommands = (ListView) view.findViewById(R.id.commands_list);
+        NonScrollListView listViewActiveCommand = (NonScrollListView) view.findViewById(R.id.active_command_list);
+        NonScrollListView listViewCommands = (NonScrollListView) view.findViewById(R.id.commands_list);
 
         adapter = new ActiveCommandAdapter(getActivity(), R.layout.adapter_selected_view, selectedList);
         listViewActiveCommand.setAdapter(adapter);
@@ -60,8 +57,6 @@ public class PedidosFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FirebaseController.setTableFree();
-                Toast.makeText(getContext(),"Size de Historial: " + CartaFragment.userHistoryString.size(), Toast.LENGTH_LONG).show();
-
                 }
         });
 
@@ -70,17 +65,11 @@ public class PedidosFragment extends Fragment {
 
     /**Interfaz 1*/
     public void setProducts(ArrayList<ProductClass> products){
-
-        if (products == null) {
-            Toast.makeText(getContext(),"La lista enviada esta vacia.", Toast.LENGTH_LONG).show();
-        }
-        else {
+        if (products.size() != 0) {
             adapter.addAll(products);
         }
-
-        Toast.makeText(getContext(), "Hay "+selectedList.size()+" productos en ComandaActual.", Toast.LENGTH_LONG).show();
-
     }
+
     public static void removeFromCommand(ProductClass p) {
         FirebaseController.removeOneProduct(p);
         adapter.remove(p);
