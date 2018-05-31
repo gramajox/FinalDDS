@@ -25,6 +25,8 @@ public class CartaFragment extends Fragment {
 
     public static ArrayList<String> userHistoryString = new ArrayList<>();
 
+    public FirebaseController mFirebaseController = new FirebaseController();
+
     /**Interfaz 1*/
     private SendProducts sendProducts;
 
@@ -32,7 +34,7 @@ public class CartaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.carta_tab, container, false);
 
-        FirebaseController.getAllProducts();
+        mFirebaseController.getAllProducts();
 
         NonScrollListView listViewProducts = (NonScrollListView) view.findViewById(R.id.productsList);
         NonScrollListView listViewSelectedProducts = (NonScrollListView) view.findViewById(R.id.selProdList);
@@ -71,7 +73,7 @@ public class CartaFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                FirebaseController.addProductsInTable(selectedProducts);
+                mFirebaseController.addProductsInTable(selectedProducts);
                 sendProducts.setSelectedList(selectedProducts);
                 adapter2.clear();
             }
