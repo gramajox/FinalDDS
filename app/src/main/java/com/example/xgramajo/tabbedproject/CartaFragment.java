@@ -34,8 +34,6 @@ public class CartaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.carta_tab, container, false);
 
-        mFirebaseController.getAllProducts();
-
         NonScrollListView listViewProducts = (NonScrollListView) view.findViewById(R.id.productsList);
         NonScrollListView listViewSelectedProducts = (NonScrollListView) view.findViewById(R.id.selProdList);
 
@@ -109,13 +107,15 @@ public class CartaFragment extends Fragment {
     }
 
     public static void loadAllProducts(ArrayList<ProductClass> list) {
+        adapter1.clear();
         adapter1.addAll(list);
-        Log.d("onCallback","Value = " + products.size());
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        mFirebaseController.getAllProducts();
+        Log.d("CartaFragment", "products.size()" + products.size());
     }
 
     @Override

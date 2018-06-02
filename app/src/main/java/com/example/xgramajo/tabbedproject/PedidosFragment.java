@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
+
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class PedidosFragment extends Fragment {
     private static final String TAG = "Tab3Fragment";
@@ -27,8 +30,6 @@ public class PedidosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pedidos_tab,container,false);
-
-        mFirebaseController.getTableProducts();
 
         NonScrollListView listViewActiveCommand = (NonScrollListView) view.findViewById(R.id.active_command_list);
         NonScrollListView listViewCommands = (NonScrollListView) view.findViewById(R.id.commands_list);
@@ -58,7 +59,12 @@ public class PedidosFragment extends Fragment {
         countBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mFirebaseController.setTableFree();
+                if (selectedList.size() == 0) {
+                    mFirebaseController.setTableFree();
+                } else {
+                    Toast.makeText(getContext(), "Existe una Comanda Activa.", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -76,8 +82,8 @@ public class PedidosFragment extends Fragment {
         adapter.remove(p);
     }
 
-    public void loadTableProducts(ArrayList<ProductClass> list) {
+    public static void loadTableProducts(ArrayList<ProductClass> list) {
+        adapter.clear();
         adapter.addAll(list);
-        Log.d("onCallback","Value = " + selectedList.size());
     }
 }

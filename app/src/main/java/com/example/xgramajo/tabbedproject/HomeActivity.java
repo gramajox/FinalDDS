@@ -22,7 +22,7 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
 
     Button btCarta, btReserva, btScan;
 
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseController mFirebaseController = new FirebaseController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,7 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
         public void handleResult(Result result) {
             Toast.makeText(getApplicationContext(),"Mesa: " + result.getText(),Toast.LENGTH_LONG).show();
 
-            FirebaseController.setUserTable(result.getText());
+            mFirebaseController.setUserTable(result.getText());
             FirebaseController.tableNumber = result.getText();
             
             Intent myIntent = new Intent(HomeActivity.this, ManagerActivity.class);
@@ -105,7 +105,8 @@ public class HomeActivity extends AppCompatActivity implements ZXingScannerView.
         super.onStart();
 
         if (LoginActivity.getCurrentUser() != null) {
-            FirebaseController.userID = mAuth.getCurrentUser().getUid();
+            FirebaseController.userID = LoginActivity.getCurrentUser().getUid();
+            mFirebaseController.getUserHistory();
 
         } else {
             Intent myIntent = new Intent(HomeActivity.this, LoginActivity.class);
