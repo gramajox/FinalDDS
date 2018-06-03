@@ -12,19 +12,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static com.firebase.ui.auth.AuthUI.getApplicationContext;
-
 public class PedidosFragment extends Fragment {
-    private static final String TAG = "Tab3Fragment";
+    private final String TAG = "Tab3Fragment";
 
-    private static ArrayList<ProductClass> selectedList = new ArrayList<>();
+    private ArrayList<ProductClass> selectedList = new ArrayList<>();
     private ArrayList<CommandClass> commandList = new ArrayList<>();
 
     private static ActiveCommandAdapter adapter;
 
     Button sendBtn, cancel1Btn, countBtn;
 
-    public FirebaseController mFirebaseController = new FirebaseController();
+    public static FirebaseController mFirebaseController = new FirebaseController();
 
     @Nullable
     @Override
@@ -79,6 +77,7 @@ public class PedidosFragment extends Fragment {
     }
 
     public static void removeFromCommand(ProductClass p) {
+        mFirebaseController.removeOneProduct(p);
         adapter.remove(p);
     }
 
@@ -86,4 +85,5 @@ public class PedidosFragment extends Fragment {
         adapter.clear();
         adapter.addAll(list);
     }
+
 }

@@ -60,7 +60,7 @@ public class ActiveCommandAdapter extends ArrayAdapter<ProductClass> {
         return view;
     }
 
-    public static class PaymentHolder {
+    public class PaymentHolder {
         ProductClass Product;
         TextView name;
         Button button;

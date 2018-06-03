@@ -16,7 +16,6 @@ public class FirebaseController {
 
     public static String tableNumber = "12341";
     public static String userID;
-    public static String userEmail;
 
     private static ArrayList<String> userHistoryString = new ArrayList<>();
     private static ArrayList<String> tableProductsString = new ArrayList<>();
@@ -48,9 +47,9 @@ public class FirebaseController {
                             Integer.parseInt((String) singleProduct.get("Price")),
                             R.drawable.empanadas));
                 }
+
                 firebaseCallback.onCallback(allProducts);
 
-                getTableProducts();
             }
 
             @Override
@@ -64,10 +63,17 @@ public class FirebaseController {
         databaseRef3.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                tableProductsString.clear();
+                tableProducts.clear();
+
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     String prodName = data.getValue(String.class);
                     tableProductsString.add(prodName);
                 }
+
+                Log.d("readTableProducts","allProducts.size() = "+allProducts.size());
+
                 for (int x=0; x < tableProductsString.size(); x++) {
                     for (int y=0; y < allProducts.size(); y++) {
                         if (allProducts.get(y).getName().equals(tableProductsString.get(x))) {
@@ -89,13 +95,15 @@ public class FirebaseController {
         readAllProducts(new FirebaseCallback() {
             @Override
             public void onCallback(ArrayList<ProductClass> listProd) {
+
                 if (userHistoryString.size() > 0) {
+                    Log.d("getAllProducts", "allProducts.size() = "+allProducts.size());
+                    getTableProducts();
                     orderProducts(listProd, userHistoryString);
                     CartaFragment.loadAllProducts(productsInOrder);
                 } else {
                     CartaFragment.loadAllProducts(listProd);
                 }
-
             }
         });
     }
@@ -156,8 +164,9 @@ public class FirebaseController {
         }
 
         //AGREGO LOS PRODUCTOS QUE FALTAN
-        allProducts.removeAll(productsInOrder);
-        productsInOrder.addAll(allProducts);
+        ArrayList<ProductClass> auxListProducts = new ArrayList<>(allProducts);
+        auxListProducts.removeAll(productsInOrder);
+        productsInOrder.addAll(auxListProducts);
     }
 
     public void setUserTable(String qrResult) {
@@ -190,7 +199,24 @@ public class FirebaseController {
     }
 
     public void removeOneProduct(ProductClass p) {
-        //databaseReference.child("Mesas").child(tableNumber).child("Comanda").removeValue(p.getName());
+        DatabaseReference databaseRef = databaseReference.child("Mesas").child(tableNumber).child("Comanda");
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                int control =0;
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    String prodName = data.getValue(String.class);
+                    if (prodName.equals(p.getName()) && control == 0) {
+                        databaseRef.child(data.getKey()).removeValue();
+                        control = 1;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     /*LLAMAR A ESTA FUNCION EN EL START DE HOME ACTIVITY*/

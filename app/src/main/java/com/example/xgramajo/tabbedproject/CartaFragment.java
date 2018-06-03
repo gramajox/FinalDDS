@@ -115,7 +115,6 @@ public class CartaFragment extends Fragment {
     public void onStart() {
         super.onStart();
         mFirebaseController.getAllProducts();
-        Log.d("CartaFragment", "products.size()" + products.size());
     }
 
     @Override

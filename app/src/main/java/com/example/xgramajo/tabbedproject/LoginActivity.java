@@ -90,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
 
         if(currentUser != null){
             FirebaseController.userID = mAuth.getCurrentUser().getUid();
-            FirebaseController.userEmail = mAuth.getCurrentUser().getEmail();
             sendToMain();
         }
     }
