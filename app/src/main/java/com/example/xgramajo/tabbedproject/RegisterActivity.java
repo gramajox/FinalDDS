@@ -137,7 +137,7 @@ public class RegisterActivity extends AppCompatActivity {
         String userMail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
         mDatabase.child("Users").child(userId).child("Mail").setValue(userMail);
-        mDatabase.child("Users").child(userId).child("Historial").setValue("");
-        mDatabase.child("Users").child(userId).child("Mesa").setValue("");
+        mDatabase.child("Users").child(userId).child("History").setValue("");
+        mDatabase.child("Users").child(userId).child("Table").setValue("");
     }
 }

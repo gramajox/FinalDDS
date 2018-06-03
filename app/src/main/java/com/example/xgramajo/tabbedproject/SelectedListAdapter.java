@@ -53,7 +53,7 @@ public class SelectedListAdapter extends ArrayAdapter<ProductClass> {
 
             @Override
             public void onClick(View view) {
-                CartaFragment.removeFromSelected(products.get(position));
+                MenuFragment.removeFromSelected(products.get(position));
             }
         });
 

@@ -12,7 +12,7 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-public class ManagerActivity extends AppCompatActivity implements CartaFragment.SendProducts{
+public class ManagerActivity extends AppCompatActivity implements MenuFragment.SendProducts{
 
     private static final String TAG = "MainActivity";
     private SectionsPageAdapter mSectionsPageAdapter;
@@ -45,8 +45,8 @@ public class ManagerActivity extends AppCompatActivity implements CartaFragment.
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        mSectionsPageAdapter.addFragment(new CartaFragment(), "Carta");
-        mSectionsPageAdapter.addFragment(new PedidosFragment(), "Pedidos");
+        mSectionsPageAdapter.addFragment(new MenuFragment(), "Carta");
+        mSectionsPageAdapter.addFragment(new CommandFragment(), "Pedidos");
         viewPager.setAdapter(mSectionsPageAdapter);
     }
 
@@ -54,9 +54,9 @@ public class ManagerActivity extends AppCompatActivity implements CartaFragment.
     @Override
     public void setSelectedList(ArrayList<ProductClass> selectedList){
 
-        PedidosFragment pedidosFragment = (PedidosFragment) mSectionsPageAdapter.getItem(1);
+        CommandFragment commandFragment = (CommandFragment) mSectionsPageAdapter.getItem(1);
 
-        pedidosFragment.setProducts(selectedList);
+        commandFragment.setProducts(selectedList);
 
     }
 

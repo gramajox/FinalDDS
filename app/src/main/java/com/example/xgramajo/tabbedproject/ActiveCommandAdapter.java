@@ -53,7 +53,7 @@ public class ActiveCommandAdapter extends ArrayAdapter<ProductClass> {
 
             @Override
             public void onClick(View view) {
-                PedidosFragment.removeFromCommand(products.get(position));
+                CommandFragment.removeFromCommand(products.get(position));
             }
         });
 

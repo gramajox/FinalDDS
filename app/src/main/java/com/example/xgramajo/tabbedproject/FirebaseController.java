@@ -6,15 +6,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 public class FirebaseController {
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-    public static String tableNumber = "12341";
+    public static String tableNumber;
     public static String userID;
 
     private static ArrayList<String> userHistoryString = new ArrayList<>();
@@ -59,7 +64,7 @@ public class FirebaseController {
         });
     }
     private void readTableProducts(final FirebaseCallback firebaseCallback) {
-        DatabaseReference databaseRef3 = databaseReference.child("Mesas").child(tableNumber).child("Comanda");
+        DatabaseReference databaseRef3 = databaseReference.child("Tables").child(tableNumber).child("Command");
         databaseRef3.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -100,9 +105,9 @@ public class FirebaseController {
                     Log.d("getAllProducts", "allProducts.size() = "+allProducts.size());
                     getTableProducts();
                     orderProducts(listProd, userHistoryString);
-                    CartaFragment.loadAllProducts(productsInOrder);
+                    MenuFragment.loadAllProducts(productsInOrder);
                 } else {
-                    CartaFragment.loadAllProducts(listProd);
+                    MenuFragment.loadAllProducts(listProd);
                 }
             }
         });
@@ -113,7 +118,7 @@ public class FirebaseController {
         readTableProducts(new FirebaseCallback() {
             @Override
             public void onCallback(ArrayList<ProductClass> listProd) {
-                PedidosFragment.loadTableProducts(listProd);
+                CommandFragment.loadTableProducts(listProd);
             }
         });
     }
@@ -171,35 +176,42 @@ public class FirebaseController {
 
     public void setUserTable(String qrResult) {
         if (userID != null) {
-            databaseReference.child("Users").child(userID).child("Mesa").setValue(qrResult);
-            databaseReference.child("Mesas").child(qrResult).child("Estado").setValue("Activa");
+            databaseReference.child("Users").child(userID).child("Table").setValue(qrResult);
+            databaseReference.child("Tables").child(qrResult).child("Status").setValue("Activa");
         }
     }
 
     public void setTableFree() {
         if (userID != null && tableNumber != null) {
-            databaseReference.child("Mesas").child(tableNumber).child("Estado").setValue("Libre");
-            databaseReference.child("Users").child(userID).child("Mesa").setValue("");
+            databaseReference.child("Tables").child(tableNumber).child("Status").setValue("Libre");
+            databaseReference.child("Users").child(userID).child("Table").setValue("");
         }
     }
 
     public void addProductsInTable(ArrayList<ProductClass> list) {
         if (list != null && tableNumber != null) {
             for (int x = 0; x < list.size(); x++) {
-                databaseReference.child("Mesas").child(tableNumber).child("Comanda").push().setValue(list.get(x).getName());
-                databaseReference.child("Users").child(userID).child("Historial").push().setValue(list.get(x).getName());
+                databaseReference.child("Tables").child(tableNumber).child("Command").push().setValue(list.get(x).getName());
+                databaseReference.child("Users").child(userID).child("History").push().setValue(list.get(x).getName());
             }
         }
     }
 
     public void clearTableProducts() {
         if (tableNumber != null) {
-            databaseReference.child("Mesas").child(tableNumber).child("Comanda").removeValue();
+            databaseReference.child("Tables").child(tableNumber).child("Command").removeValue();
+        }
+    }
+
+    public void saveProducts(ArrayList<ProductClass> list) {
+        String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(System.currentTimeMillis());
+        for (int x = 0; x < list.size(); x++) {
+            databaseReference.child("Orders").child(dayOfWeek).push().setValue(list.get(x).getName());
         }
     }
 
     public void removeOneProduct(ProductClass p) {
-        DatabaseReference databaseRef = databaseReference.child("Mesas").child(tableNumber).child("Comanda");
+        DatabaseReference databaseRef = databaseReference.child("Tables").child(tableNumber).child("Command");
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -225,7 +237,7 @@ public class FirebaseController {
 
             userHistoryString.clear();
 
-            DatabaseReference databaseRef2 = databaseReference.child("Users").child(userID).child("Historial");
+            DatabaseReference databaseRef2 = databaseReference.child("Users").child(userID).child("History");
             databaseRef2.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

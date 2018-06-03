@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import java.util.ArrayList;
 
-public class CartaFragment extends Fragment {
+public class MenuFragment extends Fragment {
 
     private static ProductListAdapter adapter1;
     private static SelectedListAdapter adapter2;
@@ -114,12 +114,12 @@ public class CartaFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mFirebaseController.getAllProducts();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        mFirebaseController.getAllProducts();
     }
 
 }

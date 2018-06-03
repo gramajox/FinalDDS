@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class PedidosFragment extends Fragment {
+public class CommandFragment extends Fragment {
     private final String TAG = "Tab3Fragment";
 
     private ArrayList<ProductClass> selectedList = new ArrayList<>();
@@ -42,7 +42,9 @@ public class PedidosFragment extends Fragment {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mFirebaseController.saveProducts(selectedList);
+                mFirebaseController.clearTableProducts();
+                adapter.clear();
             }
         });
 
