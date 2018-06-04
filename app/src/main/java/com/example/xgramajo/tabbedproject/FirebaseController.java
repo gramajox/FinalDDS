@@ -9,9 +9,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
@@ -34,10 +32,11 @@ public class FirebaseController {
     }
 
     private void readAllProducts(final FirebaseCallback firebaseCallback) {
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference databaseReference1 = databaseReference.child("Products");
+        databaseReference1.orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Object> prod = (Map<String,Object>) dataSnapshot.child("Products").getValue();
+                Map<String, Object> prod = (Map<String,Object>) dataSnapshot.getValue();
 
                 allProducts.clear();
 
