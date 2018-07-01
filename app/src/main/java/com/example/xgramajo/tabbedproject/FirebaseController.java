@@ -17,7 +17,7 @@ public class FirebaseController {
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-    public static String tableNumber;
+    public static String tableNumber = "21344";
     public static String userID;
 
     private static ArrayList<String> userHistoryString = new ArrayList<>();

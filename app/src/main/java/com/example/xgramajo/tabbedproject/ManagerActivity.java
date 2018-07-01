@@ -1,6 +1,7 @@
 package com.example.xgramajo.tabbedproject;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 public class ManagerActivity extends AppCompatActivity implements MenuFragment.SendProducts{
@@ -17,12 +20,32 @@ public class ManagerActivity extends AppCompatActivity implements MenuFragment.S
     private static final String TAG = "MainActivity";
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
+    FirebaseAuth mAuth;
+
+    FirebaseAuth.AuthStateListener mAuthListener;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager);
         Log.d(TAG, "onCreate: Starting.");
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() == null) {
+                    sendToLogin();
+                }
+            }
+        };
 
         /**Toolbar*/
         Toolbar managerToolbar = findViewById(R.id.toolbar);
@@ -97,24 +120,13 @@ public class ManagerActivity extends AppCompatActivity implements MenuFragment.S
 
         }
     }
-        private void logOut() {
 
+        private void logOut() {
             LoginActivity.logOut();
             sendToLogin();
         }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        if (LoginActivity.getCurrentUser() == null) {
-
-            sendToLogin();
-
-        }
-    }
         private void sendToLogin() {
-
             Intent loginIntent = new Intent(ManagerActivity.this, LoginActivity.class);
             startActivity(loginIntent);
             finish();

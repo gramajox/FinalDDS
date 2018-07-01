@@ -32,6 +32,14 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
+    FirebaseAuth.AuthStateListener mAuthListener;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,71 +73,38 @@ public class RegisterActivity extends AppCompatActivity {
                 String confirm_pass = reg_confirm_pass_field.getText().toString();
 
                 if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass) & !TextUtils.isEmpty(confirm_pass)){
-
                     if(pass.equals(confirm_pass)){
-
                         reg_progress.setVisibility(View.VISIBLE);
-
                         mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if(task.isSuccessful()){
-
                                     Toast.makeText(RegisterActivity.this, "Cuenta creada con exito.", Toast.LENGTH_LONG).show();
-
                                     createUser();
-
-                                    Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                    startActivity(loginIntent);
-
+                                    sendToMain();
                                     finish();
 
                                 } else {
-
                                     String errorMessage = task.getException().getMessage();
                                     Toast.makeText(RegisterActivity.this, "Error : " + errorMessage, Toast.LENGTH_LONG).show();
 
                                 }
-
                                 reg_progress.setVisibility(View.INVISIBLE);
-
                             }
                         });
-
                     } else {
-
                         Toast.makeText(RegisterActivity.this, "Las contaseñas no coinciden.", Toast.LENGTH_LONG).show();
-
                     }
                 }
-
-
             }
         });
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-
-            sendToMain();
-
-        }
-
     }
 
     private void sendToMain() {
-
         Intent mainIntent = new Intent(RegisterActivity.this, HomeActivity.class);
         startActivity(mainIntent);
         finish();
-
     }
 
     private void createUser() {
