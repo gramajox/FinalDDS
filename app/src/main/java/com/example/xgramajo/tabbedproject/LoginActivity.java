@@ -54,12 +54,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        loginEmailText = findViewById(R.id.reg_email);
-        loginPassText = findViewById(R.id.reg_confirm_pass);
-        loginBtn = findViewById(R.id.login_btn);
-        loginRegBtn = findViewById(R.id.login_reg_btn);
-        loginProgress = findViewById(R.id.login_progress);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -71,6 +65,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
+
+        setContentView(R.layout.activity_login);
+        loginEmailText = findViewById(R.id.reg_email);
+        loginPassText = findViewById(R.id.reg_confirm_pass);
+        loginBtn = findViewById(R.id.login_btn);
+        loginRegBtn = findViewById(R.id.login_reg_btn);
+        loginProgress = findViewById(R.id.login_progress);
 
         loginRegBtn.setOnClickListener(new View.OnClickListener() {
             @Override

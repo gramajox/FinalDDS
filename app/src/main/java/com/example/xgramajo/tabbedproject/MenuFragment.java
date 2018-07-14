@@ -1,18 +1,21 @@
 package com.example.xgramajo.tabbedproject;
 
-import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
+
+import com.example.xgramajo.tabbedproject.Adapters.NonScrollListView;
+import com.example.xgramajo.tabbedproject.Adapters.ProductListAdapter;
+import com.example.xgramajo.tabbedproject.Adapters.SelectedListAdapter;
+
 import java.util.ArrayList;
 
 public class MenuFragment extends Fragment {

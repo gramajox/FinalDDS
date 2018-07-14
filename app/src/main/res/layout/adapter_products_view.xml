@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/product_price"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:gravity="start"
         android:paddingTop="@dimen/fab_margin"
         android:text="@string/textProductPrice"
@@ -23,7 +23,8 @@
     <TextView
         android:id="@+id/product_name"
         android:layout_width="280dp"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
+        android:textSize="18sp"
         android:gravity="start"
         android:text="@string/textProductName"
         android:textStyle="bold"
@@ -35,7 +36,7 @@
     <TextView
         android:id="@+id/product_description"
         android:layout_width="280dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:gravity="start"
         android:text="@string/textProductDescription"
         app:layout_constraintEnd_toStartOf="@+id/product_button"
@@ -44,8 +45,8 @@
 
     <Button
         android:id="@+id/product_button"
-        android:layout_width="28dp"
-        android:layout_height="60dp"
+        android:layout_width="35dp"
+        android:layout_height="80dp"
         android:background="@android:color/white"
         android:text="+"
         android:textColor="@color/colorPrimary"

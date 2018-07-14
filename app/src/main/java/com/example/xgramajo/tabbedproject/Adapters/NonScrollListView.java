@@ -1,4 +1,4 @@
-package com.example.xgramajo.tabbedproject;
+package com.example.xgramajo.tabbedproject.Adapters;
 
 import android.content.Context;
 import android.util.AttributeSet;

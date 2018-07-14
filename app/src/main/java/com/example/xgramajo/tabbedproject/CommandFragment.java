@@ -1,14 +1,18 @@
 package com.example.xgramajo.tabbedproject;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.xgramajo.tabbedproject.Adapters.ActiveCommandAdapter;
+import com.example.xgramajo.tabbedproject.Adapters.NonScrollListView;
 
 import java.util.ArrayList;
 
@@ -16,7 +20,6 @@ public class CommandFragment extends Fragment {
     private final String TAG = "Tab3Fragment";
 
     private ArrayList<ProductClass> selectedList = new ArrayList<>();
-    private ArrayList<CommandClass> commandList = new ArrayList<>();
 
     private static ActiveCommandAdapter adapter;
 
@@ -45,6 +48,19 @@ public class CommandFragment extends Fragment {
                 mFirebaseController.saveProducts(selectedList);
                 mFirebaseController.clearTableProducts();
                 adapter.clear();
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+                View mView = getLayoutInflater().inflate(R.layout.finish_dialog, null);
+                Button backBtn = (Button) mView.findViewById(R.id.button2);
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+                backBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent backHome = new Intent(getContext(), HomeActivity.class);
+                        startActivity(backHome);
+                    }
+                });
             }
         });
 

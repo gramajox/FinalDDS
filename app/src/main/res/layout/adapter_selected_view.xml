@@ -23,9 +23,9 @@
 
     <TextView
         android:id="@+id/product_name"
-        android:layout_width="300dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="280dp"
+        android:layout_height="30dp"
+        android:textSize="18sp"
         android:gravity="start"
         android:text="@string/textProductName"
         android:textStyle="bold"
@@ -35,12 +35,12 @@
 
     <Button
         android:id="@+id/product_button"
-        android:layout_width="30dp"
+        android:layout_width="35dp"
         android:layout_height="35dp"
         android:background="@android:color/white"
         android:text="-"
         android:textColor="@color/colorPrimary"
-        android:textSize="25sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

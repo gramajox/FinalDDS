@@ -1,4 +1,4 @@
-package com.example.xgramajo.tabbedproject;
+package com.example.xgramajo.tabbedproject.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.xgramajo.tabbedproject.MenuFragment;
+import com.example.xgramajo.tabbedproject.ProductClass;
+import com.example.xgramajo.tabbedproject.R;
 
 import java.util.ArrayList;
 

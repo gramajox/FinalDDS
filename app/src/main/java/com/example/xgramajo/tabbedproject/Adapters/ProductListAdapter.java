@@ -1,4 +1,4 @@
-package com.example.xgramajo.tabbedproject;
+package com.example.xgramajo.tabbedproject.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,9 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.xgramajo.tabbedproject.MenuFragment;
+import com.example.xgramajo.tabbedproject.ProductClass;
+import com.example.xgramajo.tabbedproject.R;
+
 import java.util.ArrayList;
 
-public class ActiveCommandAdapter extends ArrayAdapter<ProductClass> {
+public class ProductListAdapter extends ArrayAdapter<ProductClass> {
 
     private ArrayList<ProductClass> products;
     private Context context;
@@ -20,8 +24,8 @@ public class ActiveCommandAdapter extends ArrayAdapter<ProductClass> {
 
     private SparseBooleanArray mSelectedItemsIds;
 
-    /** Adapter con Holder */
-    public ActiveCommandAdapter(Context context, int layoutResourceId, ArrayList<ProductClass> products) {
+    /**Adapter con Holder*/
+    public ProductListAdapter(Context context, int layoutResourceId, ArrayList<ProductClass> products) {
         super(context, layoutResourceId, products);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -32,37 +36,40 @@ public class ActiveCommandAdapter extends ArrayAdapter<ProductClass> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        ActiveCommandAdapter.PaymentHolder holder = null;
+        PaymentHolder holder = null;
 
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         view = inflater.inflate(layoutResourceId, parent, false);
 
-        holder = new ActiveCommandAdapter.PaymentHolder();
+        holder = new PaymentHolder();
         holder.Product = products.get(position);
-        holder.button = (Button) view.findViewById(R.id.product_button);
+        holder.button = (Button)view.findViewById(R.id.product_button);
 
-        holder.name = (TextView) view.findViewById(R.id.product_name);
-        holder.price = (TextView) view.findViewById(R.id.product_price);
+        holder.name = (TextView)view.findViewById(R.id.product_name);
+        holder.description = (TextView)view.findViewById(R.id.product_description);
+        holder.price = (TextView)view.findViewById(R.id.product_price);
 
         view.setTag(holder);
 
         holder.name.setText(holder.Product.getName());
-        holder.price.setText("$" + String.valueOf(holder.Product.getPrice()));
+        holder.description.setText(holder.Product.getDescription());
+        holder.price.setText("$"+String.valueOf(holder.Product.getPrice()));
 
         holder.button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                CommandFragment.removeFromCommand(products.get(position));
+                MenuFragment.selectProductFromList(products.get(position));
             }
         });
 
         return view;
     }
 
-    public class PaymentHolder {
+    public static class PaymentHolder {
         ProductClass Product;
         TextView name;
+        TextView description;
         Button button;
         TextView price;
     }

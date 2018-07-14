@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.xgramajo.tabbedproject.Adapters.SectionsPageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
